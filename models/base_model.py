@@ -8,10 +8,19 @@ class BaseModel:
     when an instance of the class is called, the parameters are updated
     Assisgns a unique id, time created and time updated
     """
-    def __init__(self):
-        self.id = (uuid.uuid4)
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            if "__class__" in kwargs:
+                del kwargs["__class__"]
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                else:
+                    setattr(self, key, value)
+            else:
+                self.id = (uuid.uuid4)
+                self.created_at = datetime.now()
+                self.updated_at = datetime.now()
 
     """converts the output of the instance to a string """
 
