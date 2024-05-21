@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Defines the HBnB console """
 import cmd
+import models
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -17,12 +18,12 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
     cls_dct = {
-        "BaseModel": BaseModel
-        "User": User
-        "State": State
-        "City": City
-        "Amenity": Amenity
-        "Place": Place
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
         "Review": Review
               }
 
@@ -37,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
         elif not self.cls_dct.get(cname):
             print("** class doesn't exist **")
         else:
-            obj = self.cname[clsname]()
+            obj = self.cls_dct[cname]()
             models.storage.save()
             print(obj.id)
 
@@ -137,8 +138,8 @@ class HBNBCommand(cmd.Cmd):
                 if hasattr(obj, attr_name):
                     attr_val = type(getattr(obj, attr_name))(attr_val)
                 else:
-                    attr_val = self.valType(atrr_val)(attr_val)
-                setattr(obj, attr_name, atrr_val)
+                    attr_val = self.valType(attr_val)(attr_val)
+                setattr(obj, attr_name, attr_val)
                 models.storage.save()
 
     def do_EOF(self, arg):

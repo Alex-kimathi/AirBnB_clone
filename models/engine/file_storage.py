@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Contains FileStorage class"""
 import os
-from models.base import BaseModel
+from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
@@ -44,4 +44,6 @@ class FileStorage:
                 reload_dict = json.load(f)
 
                 for obj in reload_dict.values():
-                    self.new(eval(obj["__class__"])(**obj))
+                    cname = obj["__class__"]
+                    del obj["__class__"]
+                    self.new(eval(cname)(**obj))
