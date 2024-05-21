@@ -16,7 +16,15 @@ class HBNBCommand(cmd.Cmd):
     """ Defines the command interpreter class """
 
     prompt = "(hbnb) "
-    cls_dct = {'BaseModel': BaseModel}
+    cls_dct = {
+        "BaseModel": BaseModel
+        "User": User
+        "State": State
+        "City": City
+        "Amenity": Amenity
+        "Place": Place
+        "Review": Review
+              }
 
     def emptyline(self):
         """Shouldn’t execute anything if no command is passed"""
