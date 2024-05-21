@@ -7,7 +7,9 @@ from datetime import datetime
 
 class BaseModel:
     """
-    defines all common attributes/methods for other classes
+    Creates a base class where other classes will inherit
+    when an instance of the class is called, the parameters are updated
+    Assisgns a unique id, time created and time updated
     """
 
     def __init__(self, *args, **kwargs):
