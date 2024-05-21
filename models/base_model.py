@@ -15,16 +15,18 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize the class"""
         date_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        if kwargs:
+        if len(kwargs) != 0:
             for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
+                if key == "__class__":
+                    continue
+                elif key == "created_at" or key == "updated_at":
                     setattr(self, key, datetime.strptime(value, date_format))
                 else:
                     setattr(self, key, value)
         else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
             models.storage.new(self)
 
     def __str__(self):
