@@ -1,7 +1,10 @@
 /* For global css i.e the body */
 body {
     margin: 0;
+    padding: 0;
     display: flex;
+    color: #484848;
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     flex-direction: column;
     min-height: 100vh;
 }
